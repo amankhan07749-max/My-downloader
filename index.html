@@ -3,27 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <meta name="google-site-verification" content="google14f6a44139299b26" />
-    <title>MediaDown - Ultimate Downloader</title>
+    
+    <title>MediaDown - Free Instagram Reels & Video Downloader</title>
+    <meta name="description" content="MediaDown is a free online tool to download Instagram reels, videos, and stories in HD quality. No login required, fast and secure downloader.">
+    <meta name="keywords" content="Instagram Downloader, Download Reels, IG Video Downloader, Instagram Story Saver, Free Reel Downloader, MediaDown, Download Instagram Videos Online">
+    <meta name="author" content="MediaDown">
+
     <style>
-        body { font-family: sans-serif; text-align: center; background: #f0f2f5; padding: 20px; }
-        .box { max-width: 450px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        input { width: 90%; padding: 12px; margin-bottom: 15px; border: 2px solid #ddd; border-radius: 8px; }
-        button { width: 100%; padding: 14px; background: #1a73e8; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
-        #status { margin-top: 20px; font-weight: bold; min-height: 40px; }
-        .dl-link { display: inline-block; background: #28a745; color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-top: 10px; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; background: #f4f7f6; padding: 20px; color: #333; }
+        .box { max-width: 480px; margin: 40px auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        h1 { color: #e1306c; margin-bottom: 10px; }
+        p { color: #666; font-size: 14px; }
+        input { width: 90%; padding: 15px; margin: 20px 0; border: 2px solid #ddd; border-radius: 10px; outline: none; transition: 0.3s; }
+        input:focus { border-color: #e1306c; }
+        button { width: 100%; padding: 15px; background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 16px; }
+        #status { margin-top: 25px; font-weight: bold; min-height: 50px; }
+        .dl-link { display: inline-block; background: #28a745; color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-top: 10px; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        .ad-container { margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; }
     </style>
 </head>
 <body>
 
 <div class="box">
     <h1>MediaDown</h1>
-    <p>Download Instagram Reels & Videos</p>
-    <input type="text" id="urlInput" placeholder="Paste link here...">
-    <button id="btn" onclick="startDownload()">Generate Link</button>
-    <div id="status">Ready to download</div>
+    <p>Ultimate Instagram Video Downloader</p>
+    
+    <input type="text" id="urlInput" placeholder="Paste Instagram Link Here...">
+    <button id="btn" onclick="startDownload()">Download Now</button>
+    
+    <div id="status">Ready to serve you!</div>
 
-    <div style="margin-top:20px;">
+    <div class="ad-container">
         <script async="async" data-cfasync="false" src="https://pl28448160.effectivegatecpm.com/3851bd052732231a56bff1ddb96c9924/invoke.js"></script>
         <div id="container-3851bd052732231a56bff1ddb96c9924"></div>
     </div>
@@ -34,19 +47,27 @@ async function startDownload() {
     const input = document.getElementById('urlInput').value.trim();
     const status = document.getElementById('status');
     const btn = document.getElementById('btn');
-    if(!input) return alert("Please paste a link!");
-    btn.disabled = true;
-    btn.innerText = "Please wait...";
-    status.innerHTML = "📡 Trying Server...";
 
-    // Simple Redirect Logic for better success
+    if(!input || !input.includes("instagram.com")) {
+        return alert("Please paste a valid Instagram link!");
+    }
+
+    btn.disabled = true;
+    btn.innerText = "Processing...";
+    status.innerHTML = "🔍 Fetching video from servers...";
+
+    // 3 Second Wait for better UX & Ad Impressions
     setTimeout(() => {
-        status.innerHTML = `<p style="color:green;">Video Ready!</p>
-        <a href="https://snapinsta.app/search?q=${encodeURIComponent(input)}" target="_blank" class="dl-link">DOWNLOAD VIDEO NOW</a>`;
+        status.innerHTML = `
+            <span style="color:green;">✨ Video Found!</span><br>
+            <a href="https://snapinsta.app/search?q=${encodeURIComponent(input)}" target="_blank" class="dl-link">CLICK TO DOWNLOAD VIDEO</a>
+            <p style="font-size:12px; color:gray; margin-top:10px;">(Opens in new tab)</p>
+        `;
         btn.disabled = false;
-        btn.innerText = "Generate Link";
+        btn.innerText = "Download Another";
     }, 3000);
 }
 </script>
+
 </body>
 </html>
