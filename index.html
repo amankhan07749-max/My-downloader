@@ -1,25 +1,27 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MediaDown - Free Downloader</title>
+    <title>MediaDown - Best Video Downloader</title>
     <style>
         body { font-family: sans-serif; text-align: center; background: #f4f7f6; padding: 20px; }
         .box { max-width: 450px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         input { width: 90%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px; }
-        button { width: 100%; padding: 12px; background: #007bff; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
-        #status { margin-top: 20px; font-weight: bold; }
-        .ad-center { margin: 20px 0; display: flex; justify-content: center; }
+        button { width: 100%; padding: 12px; background: #1a73e8; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        #status { margin-top: 20px; font-weight: bold; font-size: 14px; }
+        .ad-center { margin: 25px 0; display: flex; justify-content: center; min-height: 100px; }
+        .dl-link { display: inline-block; background: #28a745; color: white; padding: 12px 20px; border-radius: 8px; text-decoration: none; margin-top: 10px; }
     </style>
 </head>
 <body>
 
 <div class="box">
     <h2>MediaDown</h2>
-    <p>Download Videos & Reels</p>
-    <input type="text" id="urlInput" placeholder="Paste link here...">
-    <button id="btn" onclick="startDownload()">Download Now</button>
+    <p>Download Videos & Reels Free</p>
+    <input type="text" id="urlInput" placeholder="Paste link here (Instagram/YouTube)...">
+    <button id="btn" onclick="downloadVideo()">Generate Link</button>
+    
     <div id="status"></div>
 
     <div class="ad-center">
@@ -29,43 +31,49 @@
     </div>
 
 <script>
-async function startDownload() {
-    const input = document.getElementById('urlInput').value;
+async function downloadVideo() {
+    const input = document.getElementById('urlInput').value.trim();
     const status = document.getElementById('status');
     const btn = document.getElementById('btn');
 
-    if(!input) return alert("Link paste karein!");
+    if(!input) return alert("Please paste a link first!");
 
     btn.disabled = true;
-    status.innerText = "Please wait... Processing through proxy";
-    status.style.color = "blue";
+    btn.innerText = "Processing...";
+    status.innerHTML = "Fetching video details...";
+    status.style.color = "#1a73e8";
 
     try {
-        // Hum "All-in-one" open API use kar rahe hain jo proxy ke saath chalegi
-        const proxyUrl = "https://api.allorigins.win/get?url=";
-        const targetApi = `https://api.cobalt.tools/api/json`;
-
-        const response = await fetch(targetApi, {
+        // Method: Using a more stable open-source fetcher
+        const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://co.wuk.sh/api/json')}`, {
             method: 'POST',
             headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
             body: JSON.stringify({ url: input, vQuality: '720' })
         });
-
-        const data = await response.json();
+        
+        // Agar direct fetch block ho, toh hum alternative try karte hain
+        const res = await fetch('https://api.cobalt.tools/api/json', {
+            method: 'POST',
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url: input, vQuality: '720' })
+        });
+        
+        const data = await res.json();
 
         if (data.url) {
-            status.innerHTML = `<a href="${data.url}" target="_blank" style="background:green; color:white; padding:10px; border-radius:5px; text-decoration:none;">CLICK TO SAVE VIDEO</a>`;
+            status.innerHTML = `<p style="color:green;">Video Ready!</p><a href="${data.url}" class="dl-link" target="_blank">DOWNLOAD NOW</a>`;
         } else {
-            status.innerText = "Error: Video not found. Try another link.";
+            status.innerText = "Error: Video not found or link private.";
             status.style.color = "red";
         }
     } catch (e) {
-        status.innerText = "Server Error. Please try a different Instagram/YouTube link.";
+        status.innerText = "Service Busy. Please try again with another link.";
         status.style.color = "red";
     } finally {
         btn.disabled = false;
+        btn.innerText = "Generate Link";
     }
 }
 </script>
 </body>
-</html>       
+</html>
