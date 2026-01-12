@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MediaDown - Multi-Server Downloader</title>
+    <title>MediaDown - Dual Server</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; text-align: center; background: #f4f7f6; padding: 20px; }
-        .box { max-width: 450px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        input { width: 90%; padding: 12px; margin-bottom: 15px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px; }
+        body { font-family: sans-serif; text-align: center; background: #f0f2f5; padding: 20px; }
+        .box { max-width: 450px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        input { width: 90%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px; }
         button { width: 100%; padding: 14px; background: #1a73e8; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
-        #status { margin-top: 20px; font-weight: bold; font-size: 14px; }
-        .ad-center { margin: 25px 0; display: flex; justify-content: center; min-height: 100px; }
+        #status { margin-top: 20px; font-weight: bold; font-size: 14px; padding: 10px; border-radius: 5px; }
+        .ad-center { margin: 25px 0; display: flex; flex-direction: column; align-items: center; }
         .dl-link { display: inline-block; background: #28a745; color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-top: 10px; }
     </style>
 </head>
@@ -18,15 +18,16 @@
 
 <div class="box">
     <h1>MediaDown</h1>
-    <p>Strong Multi-Server Downloader</p>
-    <input type="text" id="urlInput" placeholder="Paste link here...">
-    <button id="btn" onclick="startDownload()">Download Now</button>
+    <p>Strong Dual-Server Downloader</p>
+    <input type="text" id="urlInput" placeholder="Paste Instagram/YouTube link...">
+    <button id="btn" onclick="startDownload()">Generate Link</button>
+    
     <div id="status"></div>
 
     <div class="ad-center">
         <script async="async" data-cfasync="false" src="https://pl28448160.effectivegatecpm.com/3851bd052732231a56bff1ddb96c9924/invoke.js"></script>
         <div id="container-3851bd052732231a56bff1ddb96c9924"></div>
-    </div>
+        </div>
 </div>
 
 <script>
@@ -39,10 +40,10 @@ async function startDownload() {
 
     btn.disabled = true;
     btn.innerText = "Processing...";
-    status.innerHTML = "Checking Server 1...";
-    status.style.color = "blue";
+    status.style.background = "#eef";
+    status.innerHTML = "📡 Trying Server 1 (Primary)...";
 
-    // --- SERVER 1 (Cobalt) ---
+    // --- SERVER 1 ---
     try {
         const res1 = await fetch('https://api.cobalt.tools/api/json', {
             method: 'POST',
@@ -50,41 +51,37 @@ async function startDownload() {
             body: JSON.stringify({ url: input, vQuality: '720' })
         });
         const data1 = await res1.json();
+        if (data1.url) { showLink(data1.url, "Server 1"); return; }
+    } catch (e) { console.log("S1 Failed"); }
 
-        if (data1.url) {
-            showLink(data1.url);
-            return;
-        }
-    } catch (e) {
-        console.log("Server 1 failed, trying Server 2...");
-    }
-
-    // --- SERVER 2 (AIO API) ---
-    status.innerHTML = "Server 1 Busy, Trying Server 2...";
+    // --- SERVER 2 (Backup) ---
+    status.innerHTML = "⚠️ Server 1 Busy. Trying Server 2 (Backup)...";
     try {
+        // Using a direct Instagram fetcher API (FabDL)
         const res2 = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://api.fabdl.com/instagram/get-video-info?url=' + input)}`);
         const data2 = await res2.json();
         const finalData = JSON.parse(data2.contents);
 
         if (finalData.result && finalData.result.download_url) {
-            showLink(finalData.result.download_url);
+            showLink(finalData.result.download_url, "Server 2");
             return;
         }
-    } catch (e) {
-        console.log("Server 2 failed.");
-    }
+    } catch (e) { console.log("S2 Failed"); }
 
-    status.innerHTML = "<span style='color:red;'>Both servers busy. Try again with a different link.</span>";
+    status.style.background = "#fee";
+    status.innerHTML = "❌ Both servers are busy. Please try a different link or refresh.";
     btn.disabled = false;
-    btn.innerText = "Download Now";
+    btn.innerText = "Generate Link";
 }
 
-function showLink(url) {
+function showLink(url, serverName) {
     const status = document.getElementById('status');
     const btn = document.getElementById('btn');
-    status.innerHTML = `<p style="color:green;">Video Found!</p><a href="${url}" target="_blank" class="dl-link">DOWNLOAD VIDEO</a>`;
+    status.style.background = "#efe";
+    status.innerHTML = `<p style="color:green;">✅ Success via ${serverName}!</p>
+                        <a href="${url}" target="_blank" class="dl-link">DOWNLOAD VIDEO</a>`;
     btn.disabled = false;
-    btn.innerText = "Download Now";
+    btn.innerText = "Generate Link";
 }
 </script>
 </body>
