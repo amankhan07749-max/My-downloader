@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MediaDown - Multi Server</title>
+    <title>MediaDown - Dual Server</title>
     <style>
-        body { font-family: sans-serif; text-align: center; background: #f4f7f6; padding: 20px; }
+        body { font-family: sans-serif; text-align: center; background: #f0f2f5; padding: 20px; }
         .box { max-width: 450px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         input { width: 90%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px; }
         button { width: 100%; padding: 14px; background: #1a73e8; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
-        #status { margin-top: 20px; font-weight: bold; padding: 10px; border-radius: 5px; min-height: 40px; }
+        #status { margin-top: 20px; font-weight: bold; font-size: 14px; padding: 10px; border-radius: 5px; min-height: 40px; }
         .ad-center { margin: 25px 0; display: flex; flex-direction: column; align-items: center; }
         .dl-link { display: inline-block; background: #28a745; color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-top: 10px; }
     </style>
@@ -18,7 +18,7 @@
 
 <div class="box">
     <h1>MediaDown</h1>
-    <p>Download Videos (Server 1 & 2)</p>
+    <p>Strong Dual-Server Downloader</p>
     <input type="text" id="urlInput" placeholder="Paste Instagram/YouTube link...">
     <button id="btn" onclick="startDownload()">Generate Link</button>
     
@@ -39,11 +39,11 @@ async function startDownload() {
     if(!input) return alert("Please paste a link!");
 
     btn.disabled = true;
-    btn.innerText = "Please wait...";
+    btn.innerText = "Processing...";
     status.style.color = "blue";
-    status.innerHTML = "📡 Trying Server 1...";
+    status.innerHTML = "📡 Trying Server 1 (Primary)...";
 
-    // --- SERVER 1 ---
+    // --- SERVER 1 (Cobalt) ---
     try {
         const res1 = await fetch('https://api.cobalt.tools/api/json', {
             method: 'POST',
@@ -51,34 +51,37 @@ async function startDownload() {
             body: JSON.stringify({ url: input, vQuality: '720' })
         });
         const data1 = await res1.json();
-        if (data1.url) { return success(data1.url, "Server 1"); }
-    } catch (e) { console.log("S1 fail"); }
+        if (data1.url) { showLink(data1.url, "Server 1"); return; }
+    } catch (e) { console.log("S1 Failed"); }
 
-    // --- SERVER 2 ---
+    // --- SERVER 2 (Backup via Proxy) ---
     status.innerHTML = "⚠️ Server 1 Busy. Trying Server 2...";
     try {
         const res2 = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://api.fabdl.com/instagram/get-video-info?url=' + input)}`);
         const data2 = await res2.json();
         const finalData = JSON.parse(data2.contents);
+
         if (finalData.result && finalData.result.download_url) {
-            return success(finalData.result.download_url, "Server 2");
+            showLink(finalData.result.download_url, "Server 2");
+            return;
         }
-    } catch (e) { console.log("S2 fail"); }
+    } catch (e) { console.log("S2 Failed"); }
 
     status.style.color = "red";
-    status.innerHTML = "❌ Both servers are busy. Try another link.";
+    status.innerHTML = "❌ Both servers are busy. Please try another link.";
     btn.disabled = false;
     btn.innerText = "Generate Link";
 }
 
-function success(url, srv) {
+function showLink(url, serverName) {
     const status = document.getElementById('status');
     const btn = document.getElementById('btn');
     status.style.color = "green";
-    status.innerHTML = `✅ Success via ${srv}!<br><a href="${url}" target="_blank" class="dl-link">DOWNLOAD VIDEO</a>`;
+    status.innerHTML = `<p>✅ Success via ${serverName}!</p><a href="${url}" target="_blank" class="dl-link">DOWNLOAD VIDEO</a>`;
     btn.disabled = false;
     btn.innerText = "Generate Link";
 }
 </script>
 </body>
 </html>
+    
