@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MediaDown Pro - Multi-Server</title>
+    <title>MediaDown - Multi Server</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; text-align: center; background: #f0f2f5; padding: 20px; }
-        .box { max-width: 450px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        input { width: 90%; padding: 12px; margin-bottom: 15px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px; }
+        body { font-family: sans-serif; text-align: center; background: #f4f7f6; padding: 20px; }
+        .box { max-width: 450px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        input { width: 90%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px; }
         button { width: 100%; padding: 14px; background: #1a73e8; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
-        #status { margin: 20px 0; font-weight: bold; padding: 10px; border-radius: 8px; min-height: 20px; }
-        .ad-center { margin: 25px 0; display: flex; justify-content: center; min-height: 100px; }
+        #status { margin-top: 20px; font-weight: bold; padding: 10px; border-radius: 5px; min-height: 40px; }
+        .ad-center { margin: 25px 0; display: flex; flex-direction: column; align-items: center; }
         .dl-link { display: inline-block; background: #28a745; color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-top: 10px; }
     </style>
 </head>
 <body>
 
 <div class="box">
-    <h1>MediaDown Pro</h1>
-    <p>Strong Dual-Server Downloader</p>
-    <input type="text" id="urlInput" placeholder="Paste link here...">
+    <h1>MediaDown</h1>
+    <p>Download Videos (Server 1 & 2)</p>
+    <input type="text" id="urlInput" placeholder="Paste Instagram/YouTube link...">
     <button id="btn" onclick="startDownload()">Generate Link</button>
     
     <div id="status">Ready to download</div>
@@ -36,15 +36,14 @@ async function startDownload() {
     const status = document.getElementById('status');
     const btn = document.getElementById('btn');
 
-    if(!input) { alert("Please paste a link!"); return; }
+    if(!input) return alert("Please paste a link!");
 
     btn.disabled = true;
     btn.innerText = "Please wait...";
-    
-    // Server 1 Attempt
     status.style.color = "blue";
-    status.innerText = "Connecting to Server 1...";
+    status.innerHTML = "📡 Trying Server 1...";
 
+    // --- SERVER 1 ---
     try {
         const res1 = await fetch('https://api.cobalt.tools/api/json', {
             method: 'POST',
@@ -53,24 +52,21 @@ async function startDownload() {
         });
         const data1 = await res1.json();
         if (data1.url) { return success(data1.url, "Server 1"); }
-    } catch (e) { console.log("S1 Failed"); }
+    } catch (e) { console.log("S1 fail"); }
 
-    // Server 2 Attempt
-    status.innerText = "Server 1 Busy. Trying Server 2...";
+    // --- SERVER 2 ---
+    status.innerHTML = "⚠️ Server 1 Busy. Trying Server 2...";
     try {
-        const proxy = "https://api.allorigins.win/get?url=";
-        const target = `https://api.fabdl.com/instagram/get-video-info?url=${encodeURIComponent(input)}`;
-        const res2 = await fetch(proxy + encodeURIComponent(target));
+        const res2 = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://api.fabdl.com/instagram/get-video-info?url=' + input)}`);
         const data2 = await res2.json();
         const finalData = JSON.parse(data2.contents);
-
         if (finalData.result && finalData.result.download_url) {
             return success(finalData.result.download_url, "Server 2");
         }
-    } catch (e) { console.log("S2 Failed"); }
+    } catch (e) { console.log("S2 fail"); }
 
     status.style.color = "red";
-    status.innerText = "Error: All servers busy. Try again later.";
+    status.innerHTML = "❌ Both servers are busy. Try another link.";
     btn.disabled = false;
     btn.innerText = "Generate Link";
 }
@@ -79,7 +75,7 @@ function success(url, srv) {
     const status = document.getElementById('status');
     const btn = document.getElementById('btn');
     status.style.color = "green";
-    status.innerHTML = `Success via ${srv}! <br> <a href="${url}" target="_blank" class="dl-link">DOWNLOAD VIDEO</a>`;
+    status.innerHTML = `✅ Success via ${srv}!<br><a href="${url}" target="_blank" class="dl-link">DOWNLOAD VIDEO</a>`;
     btn.disabled = false;
     btn.innerText = "Generate Link";
 }
