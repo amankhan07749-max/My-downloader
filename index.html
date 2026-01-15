@@ -3,82 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <meta name="google-site-verification" content="google14f6a44139299b26" />
-    
     <title>MediaDown - Free Instagram Reels & Video Downloader</title>
-    <meta name="description" content="MediaDown is a free online tool to download Instagram reels, videos, and stories in HD quality. No login required, fast and secure downloader.">
-    <meta name="keywords" content="Instagram Downloader, Download Reels, IG Video Downloader, Instagram Story Saver, Free Reel Downloader, MediaDown, Download Instagram Videos Online">
-    <meta name="author" content="MediaDown">
-
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/dist/css/all.min.css">
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; background: #f4f7f6; padding: 20px; color: #333; }
-        .box { max-width: 480px; margin: 40px auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1 { color: #e1306c; margin-bottom: 10px; }
-        p { color: #666; font-size: 14px; }
-        input { width: 90%; padding: 15px; margin: 20px 0; border: 2px solid #ddd; border-radius: 10px; outline: none; transition: 0.3s; }
-        input:focus { border-color: #e1306c; }
-        button { width: 100%; padding: 15px; background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 16px; }
-        #status { margin-top: 25px; font-weight: bold; min-height: 50px; }
-        .dl-link { display: inline-block; background: #28a745; color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-top: 10px; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-        .ad-container { margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
     </style>
 </head>
-<body>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
 
-<div class="box">
-    <h1>MediaDown</h1>
-    <p>Ultimate Instagram Video Downloader</p>
-    
-    <input type="text" id="urlInput" placeholder="Paste Instagram Link Here...">
-    <button id="btn" onclick="startDownload()">Download Now</button>
-    <div style="text-align: center; margin-top: 20px;">
-    <p style="color: #666; font-size: 14px; font-family: sans-serif;">Server slow? Try this:</p>
-    <a href="https://www.effectivegatecpm.com/qnxzxdij90?key=d947b7a956a965200dfd8346c81302e6" target="_blank" 
-       style="background: linear-gradient(45deg, #f09433, #e1306c, #bc1888); color: white; padding: 12px 25px; text-decoration: none; border-radius: 30px; font-weight: bold; display: inline-block; box-shadow: 0 4px 15px rgba(0,0,0,0.2); font-family: sans-serif;">
-        🚀 Fast Download Server
-    </a>
-</div>
-    <div id="status">Ready to serve you!</div>
+    <nav class="gradient-bg p-4 shadow-lg text-white">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold flex items-center">
+                <i class="fab fa-instagram mr-2"></i> MediaDown
+            </h1>
+        </div>
+    </nav>
 
-    <div class="ad-container">
-        <script async="async" data-cfasync="false" src="https://pl28448160.effectivegatecpm.com/3851bd052732231a56bff1ddb96c9924/invoke.js"></script>
-        <div id="container-3851bd052732231a56bff1ddb96c9924"></div>
+    <div class="container mx-auto px-4 py-12">
+        <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden p-8">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Download Reels & Videos</h2>
+            
+            <div class="flex flex-col space-y-4">
+                <input type="text" id="urlInput" placeholder="Paste Instagram link here..." 
+                    class="w-full px-4 py-3 border-2 border-purple-200 rounded-lg focus:outline-none focus:border-purple-500 transition duration-300">
+                
+                <div class="my-4 text-center">
+                    <script async="async" data-cfasync="false" src="https://pl28488273.effectivegatecpm.com/b58e849e9a81ffe059187ea44bedd8b8/invoke.js"></script>
+                    <div id="container-b58e849e9a81ffe059187ea44bedd8b8"></div>
+                </div>
+                <button onclick="simulateDownload()" 
+                    class="w-full gradient-bg text-white font-bold py-3 rounded-lg hover:opacity-90 transition duration-300 transform hover:scale-105">
+                    <i class="fas fa-download mr-2"></i> Get Download Link
+                </button>
+            </div>
+
+            <div id="loader" class="hidden mt-8 text-center">
+                <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-purple-500"></div>
+                <p class="mt-2 text-gray-600 font-medium">Processing your request...</p>
+            </div>
+
+            <div id="downloadResult" class="hidden mt-8 p-4 bg-green-50 border-2 border-green-200 rounded-lg text-center">
+                <p class="text-green-700 font-bold mb-4">Video found successfully!</p>
+                <a href="https://pl28169145.effectivegatecpm.com/71/34/4a/71344aa1039864227301f2f01f010375.external?cb=YOUR_CB_HERE" 
+                   class="inline-block bg-green-600 text-white font-bold py-2 px-6 rounded-full hover:bg-green-700 transition duration-300">
+                   <i class="fas fa-cloud-download-alt mr-2"></i> Download Server 1 (Fast)
+                </a>
+            </div>
+        </div>
+
+        <div class="max-w-2xl mx-auto mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+            <div class="p-4"><i class="fas fa-copy text-purple-500 text-3xl mb-2"></i><h3 class="font-bold">Copy Link</h3><p class="text-sm text-gray-600">Copy the URL of Instagram Reel.</p></div>
+            <div class="p-4"><i class="fas fa-paste text-purple-500 text-3xl mb-2"></i><h3 class="font-bold">Paste URL</h3><p class="text-sm text-gray-600">Paste it in the box above.</p></div>
+            <div class="p-4"><i class="fas fa-check-circle text-purple-500 text-3xl mb-2"></i><h3 class="font-bold">Download</h3><p class="text-sm text-gray-600">Click download and enjoy!</p></div>
+        </div>
     </div>
-</div>
 
-<script>
-async function startDownload() {
-    const input = document.getElementById('urlInput').value.trim();
-    const status = document.getElementById('status');
-    const btn = document.getElementById('btn');
+    <footer class="mt-12 py-6 border-t border-gray-200 text-center text-gray-500 text-sm">
+        <p>&copy; 2024 MediaDown. Made for you.</p>
+    </footer>
 
-    if(!input || !input.includes("instagram.com")) {
-        return alert("Please paste a valid Instagram link!");
-    }
+    <script>
+        function simulateDownload() {
+            const urlInput = document.getElementById('urlInput').value;
+            if (!urlInput) {
+                alert('Please paste a valid link!');
+                return;
+            }
+            
+            document.getElementById('loader').classList.remove('hidden');
+            document.getElementById('downloadResult').classList.add('hidden');
 
-    btn.disabled = true;
-    btn.innerText = "Processing...";
-    status.innerHTML = "🔍 Fetching video from servers...";
-
-    // 3 Second Wait for better UX & Ad Impressions
-    setTimeout(() => {
-        status.innerHTML = `
-            <span style="color:green;">✨ Video Found!</span><br>
-            <a href="https://snapinsta.app/search?q=${encodeURIComponent(input)}" target="_blank" class="dl-link">CLICK TO DOWNLOAD VIDEO</a>
-            <p style="font-size:12px; color:gray; margin-top:10px;">(Opens in new tab)</p>
-        `;
-        btn.disabled = false;
-        btn.innerText = "Download Another";
-    }, 3000);
-}
-</script>
-<footer style="text-align: center; margin-top: 40px; padding: 20px; border-top: 1px solid #eee; font-family: sans-serif;">
-    <p style="font-size: 14px; color: #666;">
-        <a href="policy.html" style="color: #e1306c; text-decoration: none; font-weight: bold;">Privacy Policy | Terms | Contact Us</a>
-    </p>
-    <p style="font-size: 12px; color: #999;">&copy; 2026 MediaDown - Best Instagram Downloader</p>
-</footer>
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+                document.getElementById('downloadResult').classList.remove('hidden');
+            }, 2000);
+        }
+    </script>
 </body>
-</html>
+                    </html>
