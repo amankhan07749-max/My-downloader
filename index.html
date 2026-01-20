@@ -6,7 +6,13 @@
     
     <meta name="google-site-verification" content="F3hCgZry5BQeXBlXAJNspzqJYxdt2pTXX9q3_iRcybg" />
     
-    <title>Video Downloader</title>
+    <title>Instagram Reels Downloader - Download IG Videos HD Free</title>
+    <meta name="description" content="MediaDown is the fastest Instagram reels downloader. Download Instagram videos and reels in HD quality for free with no watermark.">
+    <meta name="keywords" content="instagram reels downloader, download ig reels, instagram video download, reels saver, no watermark reels download">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:title" content="Video Downloader">
+    <meta property="og:description" content="Fast Downloader">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/dist/css/all.min.css">
@@ -17,40 +23,57 @@
         <h1 class="text-2xl font-bold">MediaDown</h1>
     </nav>
 
-    <div class="container mx-auto px-4 py-12 max-w-2xl">
-        <div class="bg-white rounded-xl shadow-2xl p-8">
-            <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Download Reels & Videos</h2>
+    <div class="container mx-auto px-4 py-8 max-w-2xl">
+        <div class="bg-white rounded-xl shadow-2xl p-6 md:p-8">
+            <h1 class="text-3xl font-extrabold text-center mb-2 text-gray-800">Instagram Reels Downloader</h1>
+            <p class="text-center text-gray-500 mb-8">Download Instagram Videos & Reels in HD</p>
             
             <div class="flex flex-col space-y-4">
-                <input type="text" id="urlInput" placeholder="Paste link here..." 
+                <input type="text" id="urlInput" placeholder="Paste Instagram Link Here..." 
                     class="w-full px-4 py-3 border-2 border-purple-200 rounded-lg focus:outline-none focus:border-purple-500">
                 
                 <button onclick="simulateDownload()" 
                     class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold py-3 rounded-lg hover:opacity-90 transition shadow-md">
-                    Get Download Link
+                    <i class="fas fa-download mr-2"></i> Get Download Link
                 </button>
 
-                <div class="mt-2 text-center">
+                <div class="mt-2">
                     <a href="https://www.effectivegatecpm.com/qnxzxdij90?key=d947b7a956a965200dfd8346c81302e6" 
                        target="_blank"
-                       class="inline-block w-full bg-orange-500 text-white font-bold py-3 rounded-lg shadow-md">
-                       Download Server 2 (Premium)
+                       class="flex items-center justify-center w-full bg-orange-500 text-white font-bold py-3 rounded-lg shadow-md hover:bg-orange-600 transition">
+                       <i class="fas fa-bolt mr-2"></i> Download Server 2 (Fast)
                     </a>
                 </div>
 
-                <div class="mt-6 text-center border-t pt-4">
+                <div class="mt-6 text-center border-t pt-6">
                     <script async="async" data-cfasync="false" src="https://pl28488273.effectivegatecpm.com/b58e849e9a81ffe059187ea44bedd8b8/invoke.js"></script>
                     <div id="container-b58e849e9a81ffe059187ea44bedd8b8"></div>
                 </div>
             </div>
 
-            <div id="loader" class="hidden mt-8 text-center text-gray-600">Processing...</div>
+            <div id="loader" class="hidden mt-8 text-center">
+                <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-purple-500"></div>
+                <p class="text-gray-600 mt-2">Searching Video...</p>
+            </div>
 
-            <div id="downloadResult" class="hidden mt-8 p-4 bg-green-50 border-2 border-green-200 rounded-lg text-center">
+            <div id="downloadResult" class="hidden mt-8 p-6 bg-green-50 border-2 border-green-200 rounded-lg text-center">
+                <p class="text-green-700 font-bold mb-4">Video Found! Ready to Download</p>
                 <a href="https://www.effectivegatecpm.com/qnxzxdij90?key=d947b7a956a965200dfd8346c81302e6" 
-                   class="inline-block bg-green-600 text-white font-bold py-2 px-8 rounded-full shadow-lg">
-                   Download Server 1
+                   class="inline-block bg-green-600 text-white font-bold py-3 px-10 rounded-full shadow-lg hover:bg-green-700 transition">
+                   Download Server 1 (HD)
                 </a>
+            </div>
+
+            <div class="mt-12 border-t pt-8 text-gray-700">
+                <h2 class="text-xl font-bold mb-4 text-gray-800">How to Download Instagram Reels for Free?</h2>
+                <p class="text-sm mb-4">MediaDown is the best online tool to save Instagram content. Follow these simple steps:</p>
+                <ul class="list-disc ml-5 text-sm space-y-2">
+                    <li>Open Instagram and copy the URL of the reel or video.</li>
+                    <li>Paste the link in the input box on <strong>MediaDown</strong>.</li>
+                    <li>Click the <strong>Get Download Link</strong> button.</li>
+                    <li>Choose your preferred server to save the video directly to your device.</li>
+                </ul>
+                <p class="mt-6 text-sm italic text-gray-500 text-center">Fast, Secure, and No Watermark Downloads.</p>
             </div>
         </div>
     </div>
@@ -58,13 +81,18 @@
     <script>
         function simulateDownload() {
             const urlInput = document.getElementById('urlInput').value;
-            if (!urlInput) { alert('Paste link first!'); return; }
+            if (!urlInput) { 
+                alert('Please paste a valid Instagram link!'); 
+                return; 
+            }
+            document.getElementById('downloadResult').classList.add('hidden');
             document.getElementById('loader').classList.remove('hidden');
+            
             setTimeout(() => {
                 document.getElementById('loader').classList.add('hidden');
                 document.getElementById('downloadResult').classList.remove('hidden');
-            }, 1200);
+            }, 1500);
         }
     </script>
 </body>
-</html>
+                    </html>
